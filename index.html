@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Keeping Memories</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+html, body {
+  margin: 0; padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+  scroll-behavior: smooth;
+}
+body { scroll-padding-top: 70px; }
+
+/* ---------- Landing Overlay ---------- */
+#landing {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg,#ff6bcb,#58f7ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 3000;
+  transition: opacity 1s ease;
+}
+#landing h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 48px;
+  margin-bottom: 30px;
+  color: white;
+  text-shadow: 0 0 20px #ff6bcb;
+  text-align:center;
+}
+#enterBtn {
+  padding: 15px 40px;
+  background: #fff;
+  color: #ff6bcb;
+  font-size: 22px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 20px #fff;
+  transition: transform 0.2s;
+}
+#enterBtn:hover { transform: scale(1.08); }
+
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 20px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: -1;
+}
+
+/* Navbar */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+}
+nav a {
+  padding: 14px 20px;
+  color: aqua;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 4px;
+  width: 0%;
+  height: 2px;
+  background: #ff6bcb;
+  transition: 0.3s;
+}
+nav a:hover::after { width: 100%; }
+nav a:hover { color: #ff6bcb; }
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  width: 18px; height: 18px;
+  background: #ff6bcb;
+  transform: rotate(45deg);
+  opacity: 0.8;
+  animation: floatUp 12s linear infinite;
+  z-index: -1;
+  box-shadow: 0 0 8px #ff6bcb, 0 0 15px #ff69b4;
+}
+.heart:before, .heart:after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #ff6bcb;
+  border-radius: 50%;
+}
+.heart:before { top:-9px; left:0; }
+.heart:after { left:-9px; top:0; }
+@keyframes floatUp {
+  0% { transform: translateY(100vh) rotate(45deg) scale(0.6); opacity:0.6; }
+  50% { opacity:1; }
+  100% { transform: translateY(-20vh) rotate(45deg) scale(1); opacity:0; }
+}
+
+/* Background images */
+#home { background-image: url('a.png'); }
+#pictures { background-image: url('b.png'); }
+#letter { background-image: url('c.png'); }
+#reply { background-image: url('d.png'); }
+
+#home h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 48px;
+  background: linear-gradient(90deg,#ff6bcb,#58f7ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 20px #ff6bcb;
+  white-space: nowrap;
+  margin: 0;
+}
+#homeText {
+  max-width: 700px;
+  font-size: 20px;
+  line-height: 1.6;
+  margin-top: 20px;
+  color: #ffff33;
+  font-weight:bold;
+  font-style:italic;
+  font-family:georgia, serif;
+}
+
+.cursor, .cursor-small {
+  display: inline-block;
+  width: 4px; height: 1.1em;
+  background: #ff6bcb;
+  vertical-align: middle;
+  margin-left: 6px;
+  animation: blink 1s steps(2,start) infinite;
+}
+.cursor-small { width: 3px; margin-left: 4px; }
+@keyframes blink{ 50%{opacity:0;} }
+
+#farewellText {
+  white-space: pre-wrap;
+  line-height: 2;
+  font-size: 28px;
+  max-width: 700px;
+  margin: auto;
+  text-align: left;
+  font-weight:bold;
+  font-family: cursive;
+  font-size: x-large;
+  color:greenyellow;
+  text-shadow: 0 0 8px #ff6bcb;
+}
+
+/* Reply form */
+#reply form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+input, textarea {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(21, 10, 10, 0.876);
+  color: rgb(220, 244, 11);
+  font-size: 16px;
+}
+button[type="submit"] {
+  background: linear-gradient(90deg,#ff6bcb,#58f7ff);
+  border:none;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 0 15px #ff6bcb;
+  transition: all 0.3s ease;
+}
+button[type="submit"]:hover { transform: scale(1.05); box-shadow: 0 0 25px #ff6bcb; }
+#successMessage, #errorMessage { font-weight:bold; margin-top:10px; display:none; }
+#successMessage{ color:#271822; } #errorMessage{ color:#ff4b4b; }
+
+/* Carousel */
+.carousel-container { position: relative; width: 80%; max-width: 900px; height: 400px; perspective: 1000px; margin: 40px auto; }
+.carousel { width: 100%; height: 100%; position: absolute; transform-style: preserve-3d; animation: rotateCarousel 20s linear infinite; }
+.carousel img {
+  position: absolute; width: 240px; height: 160px; object-fit: cover;
+  border-radius: 20px;
+  top: 50%; left: 50%;
+  transform-origin: center center;
+  box-shadow: 0 0 25px rgba(255,107,203,0.9),
+              0 0 40px rgba(255,107,203,0.5);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.carousel img:hover {
+  box-shadow: 0 0 35px rgba(255,107,203,1),
+              0 0 60px rgba(255,107,203,0.7);
+  transform: scale(1.05) translate(-50%, -50%);
+}
+@keyframes rotateCarousel { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-360deg); } }
+
+/* Responsive */
+@media (max-width:640px){
+  #home h1 { font-size: 36px; }
+  #homeText { font-size: 16px; }
+  .carousel img { width: 180px; height: 120px; }
+  #farewellText { font-size: 20px; }
+}
+h2{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+  color:rgb(14, 237, 223);
+}
+</style>
+</head>
+<body>
+  <!-- Landing overlay -->
+  <div id="landing">
+    <h1>We don't have any money to buy beautiful flower but we are   IS Students..</h1>
+    <button id="enterBtn">Explore</button>
+  </div>
+  <audio id="bgMusic" src="music.mp3" loop></audio>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#pictures">Pictures</a>
+    <a href="#letter">Letter</a>
+    <a href="#reply">Reply</a>
+  </nav>
+
+  <section id="home">
+    <h1>Forever in Our Hearts</h1>
+    <p id="homeText">
+         "Happy Teacher’s Day, Ma’am/Sir! 🌸
+        You are more than just an educator—you are a mentor, a guide, and an inspiration. Thank you for planting seeds of knowledge with patience and watering them with kindness. The lessons you’ve shared are not only written in notebooks, but also in our hearts. May this day remind you of how many lives you’ve touched and shaped beautifully. Wishing you joy, health, and endless inspiration ahead!"**
+        
+        ---
+        
+        Do you want me to make it **short and casual (like for a card/message)** or **long and formal (like for a speech)**?
+        </p>
+  </section>
+
+  <section id="pictures">
+    <h2><b>+Everything That We Will Keep on+</b></h2>
+    <div class="carousel-container">
+      <div class="carousel" id="carousel"></div>
+    </div>
+  </section>
+
+  <section id="letter">
+    <h2> Letter</h2>
+    <div id="farewellText"></div>
+  </section>
+
+  <section id="reply">
+    <h2>Write Back to Me</h2>
+    <form id="replyForm" action="https://formspree.io/f/xyznkdnk" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="_replyto" placeholder="Your Email" required>
+      <textarea name="message" rows="6" placeholder="Waiting your reply Ma'am/Sir🥹" required></textarea>
+      <button type="submit">Send Reply</button>
+    </form>
+    <p id="successMessage">Thank you! Your message was sent.</p>
+    <p id="errorMessage">Keep your message .....</p>
+  </section>
+
+<script>
+  // Landing overlay
+  const enterBtn = document.getElementById('enterBtn');
+  const landing  = document.getElementById('landing');
+  const music    = document.getElementById('bgMusic');
+  enterBtn.addEventListener('click', () => {
+    music.play();
+    landing.style.opacity = '0';
+    setTimeout(() => landing.style.display='none', 1000);
+  });
+
+  // Typing effect for home
+  const homeEl = document.querySelector('#home h1');
+  const fullHome = homeEl.textContent;
+  homeEl.textContent = '';
+  let idx=0;
+  function typeHome(){ if(idx<fullHome.length){ homeEl.innerHTML = fullHome.slice(0,idx+1)+'<span class="cursor"></span>'; idx++; setTimeout(typeHome,100);} else{ homeEl.textContent=fullHome;} }
+  typeHome();
+
+  const para = document.getElementById('homeText');
+  const fullText = para.textContent;
+  para.textContent = '';
+  let i=0;
+  function typePara(){ if(i<fullText.length){ para.innerHTML = fullText.slice(0,i+1)+'<span class="cursor-small"></span>'; i++; setTimeout(typePara,120);} else{para.textContent=fullText;} }
+  setTimeout(typePara,2000);
+
+  // Farewell typing
+  const farewellMessage = `Happy Teacher’s Day!
+Teachers are often called the light of the world, and I believe it’s true because you have been the guiding light in our journey of learning. You didn’t just teach us lessons written in books—you opened our minds, inspired us to dream bigger, and reminded us that we are capable of more than we imagine. Your wisdom, patience, and encouragement have shaped not just our knowledge, but also our character.
+
+We are deeply thankful for every sacrifice you make—long hours of preparation, endless patience, and the way you continue to give your best even when it is not always recognized. You have taught us that education is not only about passing exams but also about becoming better people. Through your guidance, we have learned values of respect, discipline, and perseverance that will stay with us for a lifetime.
+
+On this special day, we want to honor you—not only for what you do but for who you are. You are more than just a teacher; you are a mentor, a second parent, and a true inspiration. Every word of encouragement you give us becomes a stepping stone toward our dreams, and every lesson you teach becomes part of who we are.
+
+As we celebrate you today, may you feel the appreciation and gratitude from every student whose life you have touched. Thank you for being the reason behind our courage to try, our confidence to grow, and our determination to succeed. May you continue to inspire many more lives, and may your heart be filled with joy knowing that you have made a difference.`;
+  const textEl = document.getElementById('farewellText');
+  let startedLetter=false;
+  function typeLetter(){
+    if(startedLetter) return;
+    startedLetter=true;
+    let i2=0;
+    (function loop(){
+      if(i2<farewellMessage.length){
+        textEl.innerHTML=farewellMessage.slice(0,i2+1)+'<span class="cursor"></span>';
+        i2++; setTimeout(loop,100);
+      } else { textEl.innerHTML=farewellMessage; }
+    })();
+  }
+  new IntersectionObserver(entries=>{ entries.forEach(entry=>{ if(entry.isIntersecting) typeLetter(); }); },{threshold:0.4}).observe(document.getElementById('letter'));
+
+  // Floating hearts
+  function createHeart(){ const heart=document.createElement('div'); heart.className='heart'; heart.style.left=Math.random()*100+'vw'; heart.style.animationDuration=(6+Math.random()*6)+'s'; heart.style.width=heart.style.height=(10+Math.random()*15)+'px'; document.body.appendChild(heart); setTimeout(()=>heart.remove(),12000); }
+  setInterval(createHeart,500);
+
+  // Form submission
+  const form = document.getElementById('replyForm');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    const successMsg=document.getElementById('successMessage');
+    const errorMsg=document.getElementById('errorMessage');
+    successMsg.style.display='none'; errorMsg.style.display='none';
+    fetch(form.action,{ method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} })
+      .then(response=>{ if(response.ok){ successMsg.style.display='block'; form.reset(); } else{ errorMsg.style.display='block'; } })
+      .catch(()=>{ errorMsg.style.display='block'; });
+  });
+
+  // Carousel
+  const carousel=document.getElementById('carousel');
+  const myImages=['1.png','2.png','3.png','4.png','5.png','1.png','2.png','3.png'];
+  const radius=300;
+  const numImages=myImages.length;
+  myImages.forEach((src,i)=>{
+    const img=document.createElement('img');
+    img.src=src;
+    const angle=(360/numImages)*i;
+    img.style.transform=`rotateY(${angle}deg) translateZ(${radius}px) translate(-50%, -50%)`;
+    carousel.appendChild(img);
+  });
+</script>
+</body>
+</html>
